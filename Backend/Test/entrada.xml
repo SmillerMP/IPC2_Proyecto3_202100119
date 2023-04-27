@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuracion>
+    <perfiles>
+        <perfil>
+            <nombre>Deporte</nombre>
+            <palabrasClave>
+                <palabra>Deportes</palabra>
+                <palabra>Salud</palabra>
+                <palabra>Correr</palabra>
+            </palabrasClave>
+        </perfil>
+        <perfil>
+            <nombre>Comida</nombre>
+            <palabrasClave>
+                <palabra>fideos</palabra>
+                <palabra>carne</palabra>
+                <palabra>hambuerguesa</palabra>
+                <palabra>caldo</palabra>
+                <palabra>tortillas</palabra>
+            </palabrasClave>
+        </perfil>
+    </perfiles>
+    <descartadas>
+        <palabra>En</palabra>
+        <palabra>la</palabra>
+        <palabra>a</palabra>
+    </descartadas>
+</configuracion>
