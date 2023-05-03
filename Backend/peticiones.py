@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify, make_response
 import xml.etree.ElementTree as ET
 from leerXML import *
+from mensaje import *
 
 
 
@@ -32,6 +33,16 @@ def postEntradaSalida():
 
     return respuesta
 
+
+
+
+@app.route('/Mensaje', methods=['POST'])
+def MensajeExaminar():
+    mensajeEntrada  = request.data
+    
+    mensajeEntrante = Mensaje(mensajeEntrada)
+    mensajeEntrante._leerMensaje()
+    return jsonify({"respuesta": "todo ok"})
 
 
 

@@ -16,14 +16,14 @@ signosExcluidos = [',', '.', ';', ':']
 
 
 # Guarda en la variable contenido, cada una de las lineas del archivo
-with open("Frontend\Logic\prueba.txt", "r", encoding="utf-8") as archivo:
+with open("Backend\Test\mensaje.txt", "r", encoding="utf-8") as archivo:
     contenido = archivo.read()
 
 
 print(type(contenido))
+print(contenido)
 texto = ''
 
-listaprueba = []
 # Recorre el string de contenido
 for x in contenido:
 
@@ -36,9 +36,11 @@ for x in contenido:
         x = x.replace(signo, "")
 
     texto += x
+    print(texto)
 
 texto = texto.lower()
 texto = texto.split('#')
+print(texto)
 
 
 for j in texto:

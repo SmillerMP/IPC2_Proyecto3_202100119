@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<all>
+	<Perfiles type="dict">
+		<deporte type="list">
+			<item type="str">deportes</item>
+			<item type="str">salud</item>
+			<item type="str">correr</item>
+			<item type="str">fut</item>
+			<item type="str">tenis</item>
+			<item type="str">basquet</item>
+		</deporte>
+		<comida type="list">
+			<item type="str">fideos</item>
+			<item type="str">carne</item>
+			<item type="str">helado</item>
+			<item type="str">hambuerguesa</item>
+			<item type="str">caldo</item>
+			<item type="str">tortillas</item>
+			<item type="str">camaron</item>
+		</comida>
+	</Perfiles>
+	<Descartadas type="list">
+		<item type="str">en</item>
+		<item type="str">la</item>
+		<item type="str">a</item>
+	</Descartadas>
+</all>
