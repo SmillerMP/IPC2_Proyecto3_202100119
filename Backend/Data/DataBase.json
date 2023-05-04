@@ -1,26 +1,4 @@
 {
-    "Perfiles": {
-        "deporte": [
-            "deportes",
-            "salud",
-            "correr",
-            "fut",
-            "tenis",
-            "basquet"
-        ],
-        "comida": [
-            "fideos",
-            "carne",
-            "helado",
-            "hambuerguesa",
-            "caldo",
-            "tortillas",
-            "camaron"
-        ]
-    },
-    "Descartadas": [
-        "en",
-        "la",
-        "a"
-    ]
+    "Perfiles": {},
+    "Descartadas": []
 }

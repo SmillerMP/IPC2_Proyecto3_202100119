@@ -21,7 +21,7 @@ def postEntradaSalida():
     perfilesNuevos.text = f'Se han creados {carga.pefilesCreados} perfiles nuevos'
 
     perfilesExistentes = ET.SubElement(raiz, 'perfilesExistentes')
-    perfilesExistentes.text = f'Se han actualizado {carga.perfilesActualizados} perfiles nuevos'
+    perfilesExistentes.text = f'Se han actualizado {carga.perfilesActualizados} perfiles'
 
     descartadas = ET.SubElement(raiz, 'descartadas')
     descartadas.text = f'Se han creado {carga.nuevasDescartadas} nuevas palabras a descartar'
@@ -42,6 +42,7 @@ def MensajeExaminar():
     
     mensajeEntrante = Mensaje(mensajeEntrada)
     mensajeEntrante._leerMensaje()
+    
     return jsonify({"respuesta": "todo ok"})
 
 

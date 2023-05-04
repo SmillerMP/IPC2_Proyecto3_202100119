@@ -30,10 +30,16 @@ class BaseDatos:
                 for PalabraClave in perfiles.findall("palabrasClave/palabra"):
                     palabra = PalabraClave.text
                     palabra = palabra.lower()
-
-                    if self._verificarPalabraClave(nombrePerfil, palabra) == False:
-                        actualizado = True
-                        self._agregarPalabraClave(nombrePerfil, palabra)
+                    Simple_Compuesta, palabra = self._palbrasSimples(palabra)
+                    if Simple_Compuesta == True:
+                        if self._verificarPalabraClave(nombrePerfil, palabra) == False:
+                            actualizado = True
+                            self._agregarPalabraClave(nombrePerfil, palabra)
+                    else:
+                        for x in palabra:
+                            if self._verificarPalabraClave(nombrePerfil, x) == False:
+                                actualizado = True
+                                self._agregarPalabraClave(nombrePerfil, x)
                 
                 # En caso de que se haya actualizado ese perfil, suma un contador
                 if actualizado == True:
@@ -49,8 +55,14 @@ class BaseDatos:
                     palabra = PalabraClave.text
                     palabra = palabra.lower()
 
-                    if self._verificarPalabraClave(nombrePerfil, palabra) == False:
-                        self._agregarPalabraClave(nombrePerfil, palabra)
+                    Simple_Compuesta, palabra = self._palbrasSimples(palabra)
+                    if Simple_Compuesta == True:
+                        if self._verificarPalabraClave(nombrePerfil, palabra) == False:
+                            self._agregarPalabraClave(nombrePerfil, palabra)
+                    else:
+                        for x in palabra:
+                            if self._verificarPalabraClave(nombrePerfil, x) == False:
+                                self._agregarPalabraClave(nombrePerfil, x)
                     
                     
         
@@ -59,9 +71,28 @@ class BaseDatos:
             palabra = descartadas.text
             palabra = palabra.lower()
 
+            Simple_Compuesta, palabra = self._palbrasSimples(palabra)
+            if Simple_Compuesta == True:
+                self._verificarDescartadas(palabra)
+            else:
+                for x in palabra:
+                    self._verificarDescartadas(x)
+
             self._verificarDescartadas(palabra)
 
         self._convertirXML()
+
+    def _palbrasSimples(self, palabra):
+        
+        palabra = palabra.strip()
+        palabra = palabra.split(' ')
+        while '' in palabra:
+            palabra.pop(palabra.index(''))
+        #print(len(palabra), palabra)
+        if len(palabra) == 1:
+            return True, palabra[0]
+        else:
+            return False, palabra
 
 
     # Verifica que el perfil exista
@@ -103,7 +134,7 @@ class BaseDatos:
         datos["Perfiles"][perfil].append(palabra)
 
         with open('Backend\Data\DataBase.json', 'w', encoding='utf-8') as archivo:
-            json.dump(datos, archivo, indent=4)
+            json.dump(datos, archivo, indent=4, ensure_ascii=False)
 
 
     # Agrega el perfil en caso de que no exista
@@ -114,7 +145,7 @@ class BaseDatos:
         datos["Perfiles"][perfil] = []
 
         with open('Backend\Data\DataBase.json', 'w', encoding='utf-8') as archivo:
-            json.dump(datos, archivo, indent=4)
+            json.dump(datos, archivo, indent=4, ensure_ascii=False)
 
     
     # Verifica y agrega las palabras descartadas
@@ -134,7 +165,7 @@ class BaseDatos:
             self.nuevasDescartadas += 1
 
             with open('Backend\Data\DataBase.json', 'w', encoding='utf-8') as archivo:
-                json.dump(datos, archivo, indent=4)
+                json.dump(datos, archivo, indent=4, ensure_ascii=False)
         
     
     
