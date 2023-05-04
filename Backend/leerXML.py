@@ -80,7 +80,7 @@ class BaseDatos:
 
             self._verificarDescartadas(palabra)
 
-        self._convertirXML()
+        convertirXMLData()
 
     def _palbrasSimples(self, palabra):
         
@@ -169,34 +169,17 @@ class BaseDatos:
         
     
     
-    def _convertirXML(self):
-        with open('Backend\Data\DataBase.json', 'r', encoding='utf-8') as archivo_json:
-            data = json.load(archivo_json)
+def convertirXMLData():
+    with open('Backend\Data\DataBase.json', 'r', encoding='utf-8') as archivo_json:
+        data = json.load(archivo_json)
 
-        xml_data = json2xml.Json2xml(data).to_xml()
+    xml_data = json2xml.Json2xml(data).to_xml()
 
-        with open('Backend\Data\DataBase.xml', 'w', encoding='utf-8') as archivo_xml:
-            archivo_xml.write(xml_data)
+    with open('Backend\Data\DataBase.xml', 'w', encoding='utf-8') as archivo_xml:
+        archivo_xml.write(xml_data)
 
         
 
 # cargar = BaseDatos(ruta)
 # cargar._leerXML()
 # print(f"Crados: {cargar.pefilesCreados}, Actualizados: {cargar.perfilesActualizados}")
-
-
-def Respuesta1(creados, actualizados, nuevos):
-    xml_declaration = '<?xml version="1.0" encoding="UTF-8"?>\n'
-    raiz = ET.Element('respuesta')
-    perfilesNuevos = ET.SubElement(raiz, 'perfilesNuevos')
-    perfilesNuevos.text = f'Se han creados {creados} perfiles nuevos'
-
-    perfilesExistentes = ET.SubElement(raiz, 'perfilesExistentes')
-    perfilesExistentes.text = f'Se han actualizado {actualizados} perfiles nuevos'
-    
-    descartadas = ET.SubElement(raiz, 'descartadas')
-    descartadas.text = f'Se han creado {nuevos} nuevas palabras a descartar'
-
-    # Convertir el árbol XML en una cadena
-    xml_respuesta = ET.tostring(raiz, encoding='utf-8', method='xml')
-    return xml_respuesta

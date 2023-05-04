@@ -3,6 +3,8 @@ import xml.etree.ElementTree as ET
 from leerXML import *
 from mensaje import *
 
+from leerXML import convertirXMLData
+from mensaje import convertirXMLMensajes
 
 
 app = Flask(__name__)
@@ -65,7 +67,25 @@ def obtener_datos_xml():
     return response
 
 
+@app.route('/Reset', methods=['POST'])
+def resetear():
+    archivo = {
+        "Perfiles": {},
+        "Descartadas": []
+    }
+    with open('Backend\Data\DataBase.json', 'w', encoding='utf-8') as carga:
+        json.dump(archivo, carga, indent=4, ensure_ascii=False) 
+    convertirXMLData()
+    
 
+    archivo = {}
+    with open('Backend\Data\MensajesDataBase.json', 'w', encoding='utf-8') as carga:
+        json.dump(archivo, carga, indent=4, ensure_ascii=False)
+    
+    with open('Backend\Data\MensajesDataBase.xml', 'w', encoding='utf-8') as xml:
+        xml.write('<?xml version="1.0" ?>')
+
+    return jsonify({"Mensaje": "Reseteado"})
 
 
 @app.route('/login', methods=['POST'])
