@@ -7,9 +7,12 @@ class Mensaje:
     def __init__(self, mensaje):
         self.mensaje = mensaje
         self.ciudad = ''
-        self.fechayhora = ''
+        self.fecha = ''
         self.usuario = ''
+        self.hora = ''
 
+        self.listaUsuarios = []
+        self.contadorMensajes = 0
 
     def _leerMensaje(self):
         raiz = ET.fromstring(self.mensaje)
@@ -17,6 +20,7 @@ class Mensaje:
         #Lee el mensaje xml en busqeuda de sus elementos
         for listaMensaje in raiz.findall(".//mensaje"): 
             mensaje = listaMensaje.text
+            self.contadorMensajes += 1
             mensaje = mensaje.lower()
             self._analizar(mensaje)
 
@@ -29,7 +33,8 @@ class Mensaje:
         usuario = ''
         textoAnalizar = ''
         ciudad = ''
-        FechaHora = ''
+
+
 
         while opcion != 5:
             if opcion == 1:
@@ -49,13 +54,19 @@ class Mensaje:
                 self.ciudad = ciudad
                 #print(ciudad)
 
-                index +=1
-                while mensaje[index] != '\n':
-                    FechaHora += mensaje[index]
-                    index +=1
 
-                FechaHora = FechaHora.strip()
-                self.fechayhora = FechaHora
+                match = re.search(r"\d{2}/\d{2}/\d{4}", mensaje)
+                if match:
+                    self.fecha = mensaje[match.start():match.end()]
+                    index = match.end()
+
+
+                match = re.search(r"\d{2}:\d{2}", mensaje)
+                if match:
+                    self.hora = mensaje[match.start():match.end()]
+                    index = match.end()
+
+
                 #print(FechaHora)
 
                 # if 'lugar y fecha:' in mensaje:
@@ -76,6 +87,9 @@ class Mensaje:
 
                 usuario = usuario.replace(" ", '')
                 self.usuario = usuario
+
+                if usuario not in self.listaUsuarios:
+                    self.listaUsuarios.append(usuario)
                 #print(usuario)
 
                 opcion = 3
@@ -111,7 +125,7 @@ class Mensaje:
 
         
     def _comparar(self, mensaje):
-        signosExcluidos = [',', '.', ';', ':']
+        signosExcluidos = [',', '.', ';', ':', '!', '?', '¡', '¿']
         texto = ''
         listaAnalizar = []
 
@@ -164,7 +178,7 @@ class Mensaje:
             porsentaje = round(((coincidencias*100)/elementosTotales), 2)
             Perfiles[f'{perfil}'] = str(porsentaje) + '%'
         
-        MensajesIndividual = {"FechayHora": self.fechayhora, "Perfiles": Perfiles}
+        MensajesIndividual = {"Fecha": self.fecha, "Hora":self.hora, "Perfiles": Perfiles}
 
         
         with open('Backend\Data\MensajesDataBase.json', 'r', encoding='utf-8') as archivo_json:

@@ -4,8 +4,6 @@ from leerXML import *
 from mensaje import *
 
 from leerXML import convertirXMLData
-from mensaje import convertirXMLMensajes
-
 
 app = Flask(__name__)
 
@@ -44,8 +42,30 @@ def MensajeExaminar():
     
     mensajeEntrante = Mensaje(mensajeEntrada)
     mensajeEntrante._leerMensaje()
+
+    raiz = ET.Element('respuesta')
+    perfilesNuevos = ET.SubElement(raiz, 'usuarios')
+    perfilesNuevos.text = f'Se procesaron mensajes para {len(mensajeEntrante.listaUsuarios)} usuarios distintos'
+
+    perfilesExistentes = ET.SubElement(raiz, 'mensaje')
+    perfilesExistentes.text = f'Se procesaron {mensajeEntrante.contadorMensajes} mensajes en total'
+
+    # Crea la estructura de xml para luego enviarla
+    xml_respuesta = ET.tostring(raiz, encoding='utf-8', method='xml', xml_declaration=True)
+    respuesta = make_response(xml_respuesta)
+    respuesta.headers.set('Content-Type', 'application/xml')
     
-    return jsonify({"respuesta": "todo ok"})
+    return respuesta
+
+
+@app.route('/Filtrar', methods=['GET'])
+def filtrarUsuarios():
+    
+    with open('Backend\Data\MensajesDataBase.json', 'r', encoding='utf-8') as archivo_json:
+        datos = json.load(archivo_json)
+        
+    return jsonify(datos)
+
 
 
 
