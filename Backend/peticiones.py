@@ -1,11 +1,13 @@
 from flask import Flask, request, jsonify, make_response
 import xml.etree.ElementTree as ET
+from flask_cors import CORS
 from leerXML import *
 from mensaje import *
 
 from leerXML import convertirXMLData
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route('/BaseDatos', methods=['POST'])
 def postEntradaSalida():

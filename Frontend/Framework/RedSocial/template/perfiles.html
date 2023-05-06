@@ -12,10 +12,6 @@
             background: linear-gradient(to left, #FF6B6B, #556270); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
         }
-        h1{
-            text-align: center;
-            color: white;
-        }
         
     </style>
 
@@ -24,7 +20,70 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <!-- FONT AWESOME-->
-    <script src="https://kit.fontawesome.com/08e3774683.js" crossorigin="anonymous"></script>    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">   
+
+
+    <script>
+        function enviarDatos() {
+            var cajaDeTexto = document.getElementById("cargaPefil").value;
+            fetch("http://localhost:5000/BaseDatos", {
+                method: "POST",
+                body: cajaDeTexto,
+                headers: {
+                    "Content-Type": "application/xml"
+                }
+            }).then(function(response) {
+                return response.text();
+            }).then(function(data) {
+                // Manejar la respuesta del servidor aquí
+                var parser = new DOMParser();
+                var xmlDoc = parser.parseFromString(data, "application/xml");
+
+                // Acceder a los elementos del XML
+                var elemento1 = xmlDoc.getElementsByTagName("perfilesNuevos")[0].childNodes[0].nodeValue;
+                var elemento2 = xmlDoc.getElementsByTagName("perfilesExistentes")[0].childNodes[0].nodeValue;
+                var elemento3 = xmlDoc.getElementsByTagName("descartadas")[0].childNodes[0].nodeValue;
+                
+                console.log(elemento1 + "\n" + elemento2 + "\n" + elemento3);
+                alert(elemento1 + "\n" + elemento2 + "\n" + elemento3)
+                // Mostrar los elementos en la consola o en la página HTML
+            });
+        }
+
+        function reseterBases() {  
+            // Resetear bases de datos
+            const confirmacion = confirm("Estas seguro que deseas limpiar la caja de texto");
+
+            if (confirmacion) {
+                fetch("http://localhost:5000/Reset", {
+                method: "POST"
+                }).then(function(response) {
+                    return response.text();
+                }).then(function(data) {
+                    
+                });
+                
+                alert("Bases de Datos borradas")
+
+            } else{
+                alert("Operacion Cancelada")
+            }
+            
+
+        }
+
+        function limpiar(){
+            const confirmacion = confirm("Estas seguro que deseas limpiar la caja de texto");
+
+            if (confirmacion) {
+                document.getElementById("cargaPefil").value = "";
+            }
+
+
+        }
+    </script>
+
+    
     
 
 </head>
@@ -40,13 +99,13 @@
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
                         <a class="nav-link active " aria-current="page" href=""> 
-                            <i class="fa-solid fa-database"></i> Cargar Perfiles  </a>
+                            <i class="bi bi-database"></i> Cargar Perfiles  </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/mensajes"><i class="fa-solid fa-message-lines"></i> Mensajes  </a>
+                        <a class="nav-link" href="/mensajes"><i class="bi bi-wechat"></i> Mensajes  </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../views/about.html"><i class="fa-solid fa-filter"></i> Filtrado </a>
+                        <a class="nav-link" href="../views/about.html"><i class="bi bi-funnel"></i> Filtrado </a>
                     </li>
                 </ul>
             </div>
@@ -58,16 +117,20 @@
         <div class="row justify-content-md-center">
             <div class="col-8">
                 <div class="form-group">
-                    <p class="h4"><i class="fa-solid fa-down-long"></i> Ingrese su estructura xml aquí <i class="fa-solid fa-down-long"></i></p>
-                    <textarea class="form-control" id="inputArea" rows="15"></textarea>
+                    <p class="h4"><i class="bi bi-arrow-down"></i> Ingrese su estructura xml aquí <i class="bi bi-arrow-down"></i></p>
+                    <textarea class="form-control" id="cargaPefil" rows="15"></textarea>
                 </div>
             </div>
+
             <div class="col">
                 <div class="d-flex justify-content-center mt-5 ">
-                    <button type="button" class="btn btn-success w-75">Enviar Archivo</button>
+                    <button type="button" class="btn btn-success w-75" onclick="enviarDatos()"><i class="bi bi-database-add"></i> Enviar Archivo</button>
                 </div>
                 <div class="d-flex justify-content-center mt-5">
-                    <button type="button" class="btn btn-warning w-75">Limpiar Entrada</button>
+                    <button type="button" class="btn btn-warning w-75" onclick="limpiar()"><i class="bi bi-trash"></i> Limpiar Caja de Entrada</button>
+                </div>
+                <div class="d-flex justify-content-center mt-5">
+                    <button type="button" class="btn btn-danger w-75" onclick="reseterBases()"> <i class="bi bi-database-dash"></i> Resetear Bases de Datos</button>
                 </div>
             </div>
         </div>
@@ -81,5 +144,6 @@
     crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" 
     crossorigin="anonymous"></script>
+
 </body>
 </html>

@@ -21,7 +21,7 @@ from entrada import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('perfiles/', views.entradaPefiles),
-    path('', views.entradaPrincipal),
+    path('', views.entradaMensajes),
     path('mensajes/', views.entradaMensajes)
 
 ]

@@ -1,4 +1,5 @@
 from django.shortcuts import render
+import requests
 
 # Create your views here.
 def entradaPefiles(request):
@@ -9,3 +10,4 @@ def entradaPrincipal(request):
 
 def entradaMensajes(request):
     return render(request, "mensajes.html")
+
