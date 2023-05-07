@@ -22,6 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('perfiles/', views.entradaPefiles),
     path('', views.entradaMensajes),
-    path('mensajes/', views.entradaMensajes)
+    path('mensajes/', views.entradaMensajes),
+    path('filtrado/', views.entrdaFiltrado)
 
 ]

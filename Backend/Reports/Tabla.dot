@@ -1,0 +1,33 @@
+digraph { 
+graph [label="Lista de Mensajes Todos los Usuarios", labelloc=top]
+rankdir = LR 
+ranksep=1.5 
+node[shape=none, style="filled" fontname="Arial", fontsize=12] 
+
+
+                
+            nsamuel [ label = <
+                <table>
+                    <tr><td bgcolor="#bb8fce" colspan="3" align="center"><b>Usuario: samuel</b></td></tr>
+                    <tr><td bgcolor="#e74c3c"> Fecha </td><td bgcolor="#f39c12 "> Hora </td><td bgcolor="#f1c40f"> Pefiles </td></tr>
+                                 
+                    <tr><td bgcolor="#f1948a "> 01/04/2023 </td><td bgcolor="#f8c471 "> 09:31 </td><td bgcolor="#f7dc6f"> <br/>deportista: 10.71% <br/>cultura saludable: 25.0% <br/> </td> </tr>                
+                                         
+                    <tr><td bgcolor="#f1948a "> 01/04/2023 </td><td bgcolor="#f8c471 "> 09:31 </td><td bgcolor="#f7dc6f"> <br/>deportista: 0.0% <br/>cultura saludable: 0.0% <br/> </td> </tr>                
+                                    
+                </table>
+            > ]
+                            
+                
+            nmanuel [ label = <
+                <table>
+                    <tr><td bgcolor="#bb8fce" colspan="3" align="center"><b>Usuario: manuel</b></td></tr>
+                    <tr><td bgcolor="#e74c3c"> Fecha </td><td bgcolor="#f39c12 "> Hora </td><td bgcolor="#f1c40f"> Pefiles </td></tr>
+                                 
+                    <tr><td bgcolor="#f1948a "> 01/04/2023 </td><td bgcolor="#f8c471 "> 09:31 </td><td bgcolor="#f7dc6f"> <br/>deportista: 2.17% <br/>cultura saludable: 6.52% <br/> </td> </tr>                
+                                    
+                </table>
+            > ]
+                            
+
+}

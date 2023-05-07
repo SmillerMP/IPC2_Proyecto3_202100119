@@ -50,7 +50,7 @@
             }).then(function(response) {
                 return response.text();
             }).then(function(data) {
-                // Manejar la respuesta del servidor aquí
+                alert("Mensaje Cargado satisfactoriamente")
             });
             
         }
@@ -76,7 +76,7 @@
                         <a class="nav-link active" href="/mensajes"><i class="bi bi-wechat"></i> Mensajes  </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../views/about.html"><i class="bi bi-funnel"></i> Filtrado </a>
+                        <a class="nav-link" href="/filtrado"><i class="bi bi-funnel"></i> Filtrado </a>
                     </li>
                 </ul>
             </div>
@@ -103,11 +103,6 @@
             </div>
         </div>
     </div>
-
-    <script>
-        var fecha = new Date();
-        document.getElementById("exampleFormControlInput1").innerHTML = fecha;
-    </script>
     
     <!-- BOOTSTRAP -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" 

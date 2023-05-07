@@ -1,9 +1,9 @@
-from flask import Flask, request, jsonify, make_response
+from flask import Flask, request, jsonify, make_response, send_file
 import xml.etree.ElementTree as ET
 from flask_cors import CORS
 from leerXML import *
 from mensaje import *
-
+from generacionTabla import *
 from leerXML import convertirXMLData
 
 app = Flask(__name__)
@@ -60,13 +60,17 @@ def MensajeExaminar():
     return respuesta
 
 
-@app.route('/Filtrar', methods=['GET'])
+@app.route('/Filtrar', methods=['POST'])
 def filtrarUsuarios():
+    data = request.get_json()
+    usuario = data['usuario']
+    usuario = usuario.lower()
+    #print(usuario)
     
-    with open('Backend\Data\MensajesDataBase.json', 'r', encoding='utf-8') as archivo_json:
-        datos = json.load(archivo_json)
-        
-    return jsonify(datos)
+    tabla = tablaDot(usuario)
+    respuesta = tabla._buscar()
+    
+    return send_file('Reports\Tabla.svg', mimetype='image/svg+xml')
 
 
 
@@ -106,6 +110,9 @@ def resetear():
     
     with open('Backend\Data\MensajesDataBase.xml', 'w', encoding='utf-8') as xml:
         xml.write('<?xml version="1.0" ?>')
+
+    if os.path.exists('Reports\Tabla.svg'):
+        os.remove('Reports\Tabla.svg')
 
     return jsonify({"Mensaje": "Reseteado"})
 

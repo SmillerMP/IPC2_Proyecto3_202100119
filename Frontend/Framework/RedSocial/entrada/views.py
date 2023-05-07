@@ -11,3 +11,5 @@ def entradaPrincipal(request):
 def entradaMensajes(request):
     return render(request, "mensajes.html")
 
+def entrdaFiltrado(request):
+    return render(request, "filtrado.html")
